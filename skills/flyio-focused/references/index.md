@@ -4,6 +4,7 @@ Use this map to load only relevant reference content.
 
 ## Core
 
+- `commands-reference.md`: Comprehensive command catalog with flags and usage patterns.
 - `fly-toml-core.md`: Minimal and common `fly.toml` patterns.
 - `deploy-runbook.md`: End-to-end deploy and rollback procedure.
 - `deployment-strategies.md`: Strategy selection and commands.

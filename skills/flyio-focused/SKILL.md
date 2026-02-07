@@ -48,6 +48,7 @@ Execute Fly.io tasks with clear, low-noise runbooks and explicit deployment stra
 Load only the file needed for the task:
 
 - `references/index.md`: entrypoint and file map
+- `references/commands-reference.md`: command catalog (syntax, flags, when to use, examples)
 - `references/fly-toml-core.md`: core config and minimal patterns
 - `references/deployment-strategies.md`: rolling vs immediate details
 - `references/deploy-runbook.md`: preflight, deploy, verify, rollback
@@ -66,3 +67,12 @@ Use files in `examples/` for concrete snippets and commands:
 - `examples/deploy-strategies/`
 
 Do not inline long examples in this file.
+
+## Command-First Rule
+
+When user asks how to run Fly.io operations, consult `references/commands-reference.md` first and return:
+
+1. command to run
+2. key flags for that context
+3. verification command
+4. rollback/safe fallback when relevant
