@@ -25,6 +25,6 @@ What happened instead?
 
 ## Environment
 
-- Agent: Claude / Cursor / Copilot / Other
+- Agent: Claude Code / OpenAI Codex / Other
 - OS:
 - Notes:
