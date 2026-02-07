@@ -28,6 +28,7 @@ scripts/                 # Automation and validation scripts
 ## Current Skills
 
 - `code-review/code-reviewer`
+- `flyio-focused`
 
 See `SKILLS.md` for the full index.
 

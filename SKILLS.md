@@ -7,3 +7,7 @@
 ## template
 
 - `_template`: Base folder for creating new skills.
+
+## flyio-focused
+
+- `flyio-focused`: Lean Fly.io operations skill with split references and strategy-driven deployment runbooks.
