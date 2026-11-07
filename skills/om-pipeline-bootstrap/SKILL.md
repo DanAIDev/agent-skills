@@ -116,10 +116,11 @@ gate"` — a `pull_request` workflow self-tests on its own PR. Watch for:
 To let the agent file issues/PRs upstream but never unattended, use an
 enforced approval boundary — not a prompt convention:
 
-- **Credential:** second CLASSIC PAT, `public_repo` scope only (cannot touch
-  private repos). Store at `~/.config/gh-pat-public` (chmod 600); never
-  `gh auth login` it — anything in the keyring is one `gh auth token` away
-  from exfiltration.
+- **Credential:** second CLASSIC PAT, `public_repo` + `read:org` scopes
+  (no private-repo access; `read:org` is needed because gh's PR-path
+  commands resolve org metadata via GraphQL). Store at
+  `~/.config/gh-pat-public` (chmod 600); never `gh auth login` it —
+  anything in the keyring is one `gh auth token` away from exfiltration.
 - **Wrapper** (`~/.local/bin/gh-external`): loads the token internally,
   allowlists mutating ops (`issue create|comment`, `pr create|comment|
   review`, `repo fork`), resolves the target repo (`--repo`/remote), and
