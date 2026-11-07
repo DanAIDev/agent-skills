@@ -137,8 +137,11 @@ enforced approval boundary — not a prompt convention:
   token-store references, `GH_TOKEN=` injection, decoder/pipe-to-shell
   patterns, and shell writes to enforcement files. (Devin reference
   implementation: `PreToolUse` hook matching `^(exec|write_to_process)$`.)
-- Optional second gate: the hook can pop `zenity --question` when a display
-  is reachable — a human click that holds even in no-prompt permission modes.
+- Optional second gate: with a flag file
+  (`~/.config/devin/gh-external-desktop-gate`, itself protected from agent
+  writes) the hook pops `zenity --question` when a display is reachable —
+  a human click that holds even in no-prompt permission modes. Off by
+  default; pointless on remote-administered/headless machines.
 - Residuals: bypass/no-prompt modes can skip `ask` prompts (hook blocks
   still fire); prefix rules can't see inside `bash -c` strings (the hook
   covers it); `--body-file` content isn't shown at the prompt — prefer
