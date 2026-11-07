@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Exec(gh)",
+      "Exec(git)",
+      "Exec(jq)",
+      "Exec(node)",
+      "Exec(npm)",
+      "Exec(npx)",
+      "Exec(bash)",
+      "Exec(python)",
+      "Exec(python3)",
+      "Exec(pip)",
+      "Exec(pytest)",
+      "Exec(uv)"
+    ]
+  }
+}
