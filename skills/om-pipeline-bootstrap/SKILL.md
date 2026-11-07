@@ -111,6 +111,39 @@ gate"` — a `pull_request` workflow self-tests on its own PR. Watch for:
 - Add `permissions: contents: read`.
 - Merge hits the self-approval refusal; proceeds on human authorization.
 
+## 7. (Optional) Gate third-party public-repo writes
+
+To let the agent file issues/PRs upstream but never unattended, use an
+enforced approval boundary — not a prompt convention:
+
+- **Credential:** second CLASSIC PAT, `public_repo` scope only (cannot touch
+  private repos). Store at `~/.config/gh-pat-public` (chmod 600); never
+  `gh auth login` it — anything in the keyring is one `gh auth token` away
+  from exfiltration.
+- **Wrapper** (`~/.local/bin/gh-external`): loads the token internally,
+  allowlists mutating ops (`issue create|comment`, `pr create|comment|
+  review`, `repo fork`), resolves the target repo (`--repo`/remote), and
+  refuses own-account or non-public targets and interactive flags.
+- **Approval gate (agent-specific):** the agent's permission system must
+  prompt on every `gh-external` call. Devin: `permissions.ask:
+  Exec(gh-external)` plus `deny` rules for the token file, the
+  wrapper/config/hook files, and `gh auth token|login|logout|refresh|
+  switch`. Claude Code: equivalent `permissions.ask` / `deny` +
+  `PreToolUse` hook. Any agent: whatever mechanism makes one command prefix
+  always require human confirmation.
+- **Smuggle guard:** a pre-exec hook hard-blocks `gh-external` anywhere
+  except as the command's first word — `bash -c`, env prefixes, `&&`
+  chains, and pipes would otherwise skip a prefix-matched approval — plus
+  token-store references, `GH_TOKEN=` injection, decoder/pipe-to-shell
+  patterns, and shell writes to enforcement files. (Devin reference
+  implementation: `PreToolUse` hook matching `^(exec|write_to_process)$`.)
+- Optional second gate: the hook can pop `zenity --question` when a display
+  is reachable — a human click that holds even in no-prompt permission modes.
+- Residuals: bypass/no-prompt modes can skip `ask` prompts (hook blocks
+  still fire); prefix rules can't see inside `bash -c` strings (the hook
+  covers it); `--body-file` content isn't shown at the prompt — prefer
+  inline `--body`.
+
 ## Caveats
 
 - Artifacts: plans in `.ai/runs/`, worktrees under `.ai/tmp/` (gitignore),
